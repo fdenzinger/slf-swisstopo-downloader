@@ -44,7 +44,7 @@ This guide assumes you have a Conda/Mamba installation. We recommend using `mamb
 
 ```bash
 # 1. Clone the repository and navigate into it
-git clone "[https://github.com/your-username/swisstopo-downloader.git](https://github.com/your-username/swisstopo-downloader.git)" slf-swisstopo-downloader
+git clone https://github.com/fdenzinger/slf-swisstopo-downloader.git slf-swisstopo-downloader
 cd slf-swisstopo-downloader
 
 # 2. Create and activate the conda environment
