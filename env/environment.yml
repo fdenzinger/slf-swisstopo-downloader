@@ -1,0 +1,40 @@
+# YAML file for Conda environment setup
+# Generated for a geospatial Streamlit application with Python 3.12
+
+# Install this environment using:
+#   mamba env create -f path/to/environment.yml
+# Activate the environment using:
+#   conda activate swisstopo-downloader
+
+name: slf-swisstopo-downloader
+channels:
+  - conda-forge
+
+
+dependencies:
+  # --- Python Version ---
+  - python=3.12         # Specify the Python version
+
+  # --- Core Scientific Libraries ---
+  - numpy               # For numerical operations (np)
+  - pandas              # For data manipulation and analysis (pd)
+
+  # --- Geospatial ---
+  - gdal                # Translator for raster and vector geospatial data (osgeo)
+  - geopandas           # For vector data manipulation (gpd)
+  - rasterio            # For reading/writing geospatial raster data
+  - pyproj              # For cartographic projections and coordinate transformations
+  - shapely             # For geometric objects and operations
+  - stackstac           # For creating xarray DataArrays from STAC catalogs
+
+  # --- Web App & Visualization ---
+  - streamlit           # For creating the interactive web application (st)
+  - folium              # For interactive maps (folium)
+  - streamlit-folium    # For integrating Folium maps in Streamlit
+
+  # --- Data Access ---
+  - pystac-client       # Client for SpatioTemporal Asset Catalogs (STAC)
+  - requests            # For making HTTP requests
+
+  # --- Pip ---
+  - pip                 # Ensures pip is installed in the environment
