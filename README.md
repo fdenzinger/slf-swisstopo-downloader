@@ -40,7 +40,7 @@ Welcome! This repository contains an interactive Streamlit application designed 
 
 ## Installation
 
-This guide assumes you have a Conda/Mamba installation. We recommend using `mamba` for faster environment creation.
+This guide assumes you have a [Miniforge](https://github.com/conda-forge/miniforge?tab=readme-ov-file#install)/Mamba installation. We recommend using `mamba` for faster environment creation.
 
 ```bash
 # 1. Clone the repository and navigate into it
