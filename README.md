@@ -8,6 +8,8 @@
 Welcome! This repository contains an interactive Streamlit application designed to simplify the discovery, download, and processing of official geospatial data from **Swisstopo**.
 
 ![App Screenshot](docs/markdown/assets/swisstopo_downloader_screenshot.jpeg)
+![VideoShowcase](docs/markdown/assets/SLF_DataDownloader_compressed.mp4)
+
 
 ---
 
