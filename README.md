@@ -5,7 +5,7 @@
 
 **Status:** Actively Developed (as of July 2025)
 
-Welcome! This repository contains an interactive Streamlit application designed to simplify the discovery, download, and processing of official geospatial data from **Swisstopo**.
+Welcome! This repository contains an interactive Streamlit application designed to simplify the discovery, download, and processing of official geospatial data from **[swisstopo](https://www.swisstopo.admin.ch/en/geodata-and-applications)**.
 
 ![App Screenshot](docs/markdown/assets/SLF_DataDownloader_Showcase.gif)
 
@@ -86,7 +86,7 @@ This will open the interactive user interface in your web browser.
 ---
 
 ## License
-This project is licensed under the **MIT License**. See the `LICENSE` file for details.
+This project is licensed under the **MIT License**. See the [LICENSE](https://github.com/fdenzinger/slf-swisstopo-downloader/blob/main/LICENSE) file for details.
 
 ---
 
