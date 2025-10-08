@@ -59,7 +59,7 @@ conda activate slf-swisstopo-downloader
 Once the environment is activated, you can launch the application with a single command:
 
 ```bash
-streamlit run swisstopo_downloader.py
+streamlit run path/to/slf_swisstopo_downloader.py
 ```
 
 This will open the interactive user interface in your web browser.
@@ -75,7 +75,7 @@ This will open the interactive user interface in your web browser.
 ### Input
 * **Area of Interest (AOI)**: The primary input is an AOI, which can be:
     * Drawn directly on the map.
-    * Uploaded as a GeoPackage (`.gpkg`), GeoJSON (`.geojson`), or a zipped Shapefile (`.zip`).
+    * Uploaded as a GeoPackage (`.gpkg`), GeoJSON (`.geojson`), or a zipped Shapefile (`.zip`). Only one feature AOI should be stored in the .gpkg, .geojson or .shp file.
 
 ### Output
 * **Format**: All processed geospatial data is saved as **GeoTIFF (`.tif`)** files.
@@ -101,5 +101,6 @@ The project is developed by the following contributors:
   </a>
 </div>
 
+---
 
 © 2025 WSL Institute for Snow and Avalanche Research SLF
