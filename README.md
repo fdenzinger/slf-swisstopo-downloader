@@ -1,4 +1,4 @@
-# SLF swisstopo Data Downloader
+# swisstopo Data Downloader
 ## An Interactive Tool for Downloading and Processing DEM and optical data from swisstopo
 
 [![Built with Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54)](https://www.python.org/) [![Streamlit](https://img.shields.io/badge/Streamlit-%23FE4B4B.svg?style=for-the-badge&logo=streamlit&logoColor=white)](https://streamlit.io) [![MIT License](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](https://opensource.org/licenses/MIT)
@@ -89,6 +89,20 @@ This will open the interactive user interface in your web browser.
 This project is licensed under the **MIT License**. See the [LICENSE](https://github.com/fdenzinger/slf-swisstopo-downloader/blob/main/LICENSE) file for details.
 
 ---
+
+## Citing
+If you use the code for your (scientific) work, please cite `SLF swisstopo Data Downloader` as:
+
+Denzinger, F. (2025): SLF swisstopo Data Downloader. https://github.com/fdenzinger/slf-swisstopo-downloader/
+
+```
+@misc{Denzinger2025,
+   author = {Florian Denzinger},
+   title = {SLF swisstopo Data Downloader: An Interactive Tool for Downloading and Processing DEM and optical data from swisstopo},
+   url = {https://github.com/fdenzinger/slf-swisstopo-downloader/},
+   year = {2025}
+}
+```
 
 ## Collaborators
 
