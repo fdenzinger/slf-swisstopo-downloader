@@ -598,10 +598,8 @@ if st.session_state.aoi_gdf is not None:
 
     if st.session_state.assets_to_process:
         st.markdown("---")
-        st.subheader("3. Configure and Process Swisstopo Data")
 
         if st.session_state.assets_to_process:
-            st.markdown("---")
             st.subheader("3. Configure and Process Swisstopo Data")
 
             # --- Year Selection Logic ---
