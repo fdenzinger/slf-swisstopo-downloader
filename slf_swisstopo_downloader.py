@@ -187,26 +187,47 @@ def _clip_raster(raster_path: Path, aoi_gdf: gpd.GeoDataFrame):
 
 
 def _merge_rasters(
-    file_paths: list[Path], output_path: Path, progress_bar
+        file_paths: list[Path], output_path: Path, progress_bar
 ):
-    """Helper function to merge multiple raster files."""
+    """Helper function to merge multiple raster files.
+
+    Args:
+        file_paths (list[Path]): List of paths to input raster files.
+        output_path (Path): Path where the merged raster will be saved.
+        progress_bar (streamlit.delta_generator.DeltaGenerator): Streamlit
+            progress bar object.
+
+    Raises:
+        rasterio.errors.RasterioIOError: If writing the merged file fails.
+    """
     st.write(f"Merging {len(file_paths)} files into {output_path.name}...")
     sources = [rasterio.open(fp) for fp in file_paths]
-    merged_array, out_transform = merge(sources)
-    out_meta = sources[0].meta.copy()
-    out_meta.update({
-        "driver": "GTiff",
-        "height": merged_array.shape[1],
-        "width": merged_array.shape[2],
-        "transform": out_transform,
-        "compress": "lzw"
-    })
-    with rasterio.open(output_path, "w", **out_meta) as dest:
-        dest.write(merged_array)
-    for src in sources:
-        src.close()
-    st.success(f"Successfully merged and saved to: {output_path}")
-    progress_bar.progress(1.0)
+
+    try:
+        merged_array, out_transform = merge(sources)
+        out_meta = sources[0].meta.copy()
+
+        # Update metadata: BIGTIFF is crucial for files > 4GB
+        out_meta.update({
+            "driver": "GTiff",
+            "height": merged_array.shape[1],
+            "width": merged_array.shape[2],
+            "transform": out_transform,
+            "compress": "lzw",
+            "BIGTIFF": "YES",  # Fixes the 4GB limit error
+            "tiled": True  # Improves read/write performance
+        })
+
+        with rasterio.open(output_path, "w", **out_meta) as dest:
+            dest.write(merged_array)
+
+        st.success(f"Successfully merged and saved to: {output_path}")
+        progress_bar.progress(1.0)
+
+    finally:
+        # Ensure source files are closed even if the merge fails
+        for src in sources:
+            src.close()
 
 
 def process_swisstopo_data(
