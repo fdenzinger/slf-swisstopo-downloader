@@ -599,12 +599,47 @@ if st.session_state.aoi_gdf is not None:
     if st.session_state.assets_to_process:
         st.markdown("---")
         st.subheader("3. Configure and Process Swisstopo Data")
-        st.dataframe(summarize_assets(st.session_state.assets_to_process))
 
-        project_prefix = st.text_input(
-            "Project Prefix", "MyProject", help="A name for your project.",
-            key="swisstopo_prefix"
-        )
+        if st.session_state.assets_to_process:
+            st.markdown("---")
+            st.subheader("3. Configure and Process Swisstopo Data")
+
+            # --- Year Selection Logic ---
+            available_years = set()
+            year_pattern_ui = re.compile(r'[^/]+_(\d{4})_')
+
+            for asset in st.session_state.assets_to_process:
+                match = year_pattern_ui.search(asset['url'])
+                if match:
+                    available_years.add(match.group(1))
+
+            sorted_years = sorted(list(available_years), reverse=True)
+
+            selected_years = st.multiselect(
+                "Select Years to Process",
+                options=sorted_years,
+                default=sorted_years,
+                help="Select specific years to download and process."
+            )
+
+            # Filter assets based on selection
+            filtered_assets = []
+            for asset in st.session_state.assets_to_process:
+                match = year_pattern_ui.search(asset['url'])
+                if match:
+                    if match.group(1) in selected_years:
+                        filtered_assets.append(asset)
+                else:
+                    # Keep assets where no year pattern is found to be safe
+                    filtered_assets.append(asset)
+
+            st.dataframe(summarize_assets(filtered_assets))
+
+            project_prefix = st.text_input(
+                "Project Prefix", "MyProject", help="A name for your project.",
+                key="swisstopo_prefix"
+            )
+
         output_dir = st.text_input(
             "Output Directory",
             str(Path.cwd() / "geotiff_output"),
@@ -618,19 +653,19 @@ if st.session_state.aoi_gdf is not None:
         with c1:
             st.markdown("**swissALTI3D**")
             if st.checkbox(
-                "swissALTI3D DTM", value=True, key="alti_dtm"
+                    "swissALTI3D DTM", value=False, key="alti_dtm"
             ):
                 selected_products.append("swissALTI3D DTM")
             if st.checkbox(
-                "swissALTI3D Hillshade Monodirectional", value=True,
-                key="alti_mono"
+                    "swissALTI3D Hillshade Monodirectional", value=False,
+                    key="alti_mono"
             ):
                 selected_products.append(
                     "swissALTI3D Hillshade Monodirectional"
                 )
             if st.checkbox(
-                "swissALTI3D Hillshade Multidirectional", value=True,
-                key="alti_multi"
+                    "swissALTI3D Hillshade Multidirectional", value=False,
+                    key="alti_multi"
             ):
                 selected_products.append(
                     "swissALTI3D Hillshade Multidirectional"
@@ -638,19 +673,19 @@ if st.session_state.aoi_gdf is not None:
         with c2:
             st.markdown("**swissSURFACE3D**")
             if st.checkbox(
-                "swissSURFACE3D Raster DSM", value=True, key="surf_dsm"
+                    "swissSURFACE3D Raster DSM", value=False, key="surf_dsm"
             ):
                 selected_products.append("swissSURFACE3D Raster DSM")
             if st.checkbox(
-                "swissSURFACE3D Hillshade Monodirectional", value=True,
-                key="surf_mono"
+                    "swissSURFACE3D Hillshade Monodirectional", value=False,
+                    key="surf_mono"
             ):
                 selected_products.append(
                     "swissSURFACE3D Hillshade Monodirectional"
                 )
             if st.checkbox(
-                "swissSURFACE3D Hillshade Multidirectional", value=True,
-                key="surf_multi"
+                    "swissSURFACE3D Hillshade Multidirectional", value=False,
+                    key="surf_multi"
             ):
                 selected_products.append(
                     "swissSURFACE3D Hillshade Multidirectional"
@@ -658,11 +693,11 @@ if st.session_state.aoi_gdf is not None:
         with c3:
             st.markdown("**SWISSIMAGE**")
             if st.checkbox(
-                "SWISSIMAGE Color", value=True, key="img_color"
+                    "SWISSIMAGE Color", value=False, key="img_color"
             ):
                 selected_products.append("SWISSIMAGE Color")
             if st.checkbox(
-                "SWISSIMAGE Grayscale", value=True, key="img_gray"
+                    "SWISSIMAGE Grayscale", value=False, key="img_gray"
             ):
                 selected_products.append("SWISSIMAGE Grayscale")
 
@@ -712,7 +747,7 @@ if st.session_state.aoi_gdf is not None:
             with st.spinner("Processing all data groups..."):
                 process_swisstopo_data(
                     Path(output_dir),
-                    st.session_state.assets_to_process,
+                    filtered_assets,
                     project_prefix,
                     mono_azimuth,
                     list(range(start_az, stop_az + 1, step_az)),
