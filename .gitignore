@@ -5,3 +5,6 @@
 /.idea/slf-swisstopo-downloader.iml
 /.idea/vcs.xml
 /.idea/workspace.xml
+.DS_Store
+.idea/
+docs/markdown/assets/.DS_Store
